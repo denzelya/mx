@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Information Form</title>
+</head>
+
+<body>
+    <h2>基本資料</h2>
+    <form action="/submit" method="POST">
+        <div>
+            <label for="name">姓名 / Name:</label>
+            <input type="text" id="name" name="name" value="<%= userData?.name || '' %>" required>
+        </div>
+        <div>
+            <label for="gender">性別 / Gender:</label>
+            <select id="gender" name="gender">
+                <option value="male" <%= userData?.gender === 'male' ? 'selected' : '' %>>男</option>
+                <option value="female" <%= userData?.gender === 'female' ? 'selected' : '' %>>女</option>
+                <option value="nor" <%= userData?.gender === 'nor' ? 'selected' : '' %>>不透露</option>
+            </select>
+        </div>
+        <div>
+            <label for="passportName">護照英文名 / Passport Name:</label>
+            <input type="text" id="passportName" name="passportName" value="<%= userData?.passportName || '' %>">
+        </div>
+        <div>
+            <label for="birthday">生日 / Birthday:</label>
+            <input type="date" id="birthday" name="birthday" value="<%= userData?.birthday || '' %>">
+        </div>
+        <div>
+            <label for="nationality">國籍 / Nationality:</label>
+            <input type="text" id="nationality" name="nationality" value="<%= userData?.nationality || '' %>">
+        </div>
+        <div>
+            <label for="idNumber">身份證字號 / ID Number:</label>
+            <input type="text" id="idNumber" name="idNumber" value="<%= userData?.idNumber || '' %>" oninput="this.value = this.value.toUpperCase()">
+        </div>
+        <div>
+            <label for="bloodType">血型 / Blood Type:</label>
+            <select id="bloodType" name="bloodType">
+                <option value="unknown" <%= userData?.bloodType === 'unknown' ? 'selected' : '' %>>未知</option>
+                <option value="A" <%= userData?.bloodType === 'A' ? 'selected' : '' %>>A</option>
+                <option value="B" <%= userData?.bloodType === 'B' ? 'selected' : '' %>>B</option>
+                <option value="O" <%= userData?.bloodType === 'O' ? 'selected' : '' %>>O</option>
+                <option value="AB" <%= userData?.bloodType === 'AB' ? 'selected' : '' %>>AB</option>
+            </select>
+        </div>
+        <div>
+            <label for="height">身高 / Height:</label>
+            <input type="number" id="height" name="height" step="0.1" value="<%= userData?.height || '' %>">
+        </div>
+        <div>
+            <label for="weight">體重 / Weight:</label>
+            <input type="number" id="weight" name="weight" step="0.1" value="<%= userData?.weight || '' %>">
+        </div>
+        <div>
+            <label for="cellPhone">行動電話 / Cell Phone:</label>
+            <input type="tel" id="cellPhone" name="cellPhone" value="<%= userData?.cellPhone || '' %>">
+        </div>
+        <div>
+            <label for="homePhone">住家電話 / Home Phone:</label>
+            <input type="tel" id="homePhone" name="homePhone" value="<%= userData?.homePhone || '' %>">
+        </div>
+        <div>
+            <label for="email">電子信箱 / E-mail:</label>
+            <input type="email" id="email" name="email" value="<%= userData?.email || '' %>" required>
+        </div>
+        <div>
+            <label>通知方式 / Notice:</label>
+            <input type="checkbox" name="notice" value="without_notice" <%= userData?.notice?.includes('without_notice') ? 'checked' : '' %>> 不通知
+            <input type="checkbox" name="notice" value="message" <%= userData?.notice?.includes('message') ? 'checked' : '' %>> 簡訊
+            <input type="checkbox" name="notice" value="telephone" <%= userData?.notice?.includes('telephone') ? 'checked' : '' %>> 電話
+            <input type="checkbox" name="notice" value="line" <%= userData?.notice?.includes('line') ? 'checked' : '' %>> LINE
+            <label for="lineId">LINE ID:</label>
+            <input type="text" id="lineId" name="lineId" value="<%= userData?.lineId || '' %>">
+        </div>
+
+        <div>
+            <label>戶籍地址 / Address:</label>
+            <input type="text" name="household_address_detail" placeholder="詳細地址" style="width: 30%;" value="<%= userData?.household_address_detail || '' %>">
+        </div>
+
+        <div>
+            <label>通訊地址 / Contact Address:</label>
+            <input type="text" name="contact_address_detail" placeholder="詳細地址" style="width: 30%;" value="<%= userData?.contact_address_detail || '' %>">
+            <input type="checkbox" name="same_as_address" <%= userData?.same_as_address ? 'checked' : '' %>> 同上
+        </div>
+
+        <h3>緊急聯絡人資料 / Emergency Contact</h3>
+        <div>
+            <label for="emergencyName">姓名 / Name:</label>
+            <input type="text" id="emergencyName" name="emergencyName" value="<%= userData?.emergencyName || '' %>" required>
+        </div>
+        <div>
+            <label for="emergencyPhone">電話 / Phone:</label>
+            <input type="tel" id="emergencyPhone" name="emergencyPhone" value="<%= userData?.emergencyPhone || '' %>" required>
+        </div>
+        <div>
+            <label for="relationship">關係 / Relationship:</label>
+            <input type="text" id="relationship" name="relationship" value="<%= userData?.relationship || '' %>" required>
+        </div>
+
+        <h2>過敏及疾病問卷</h2>
+
+        <h3>過敏及疾病</h3>
+        <div>
+            <label>過敏藥物：</label>
+            <input type="radio" name="allergy" value="無" <%= userData?.allergy === '無' ? 'checked' : '' %>> 無
+            <input type="radio" name="allergy" value="有" <%= userData?.allergy === '有' ? 'checked' : '' %>> 有
+        </div>
+        <div>
+            <label>系統性疾病：</label>
+            <input type="checkbox" name="disease" value="高血壓" <%= userData?.disease?.includes('高血壓') ? 'checked' : '' %>> 高血壓
+            <input type="checkbox" name="disease" value="糖尿病" <%= userData?.disease?.includes('糖尿病') ? 'checked' : '' %>> 糖尿病
+            <input type="checkbox" name="disease" value="心臟病" <%= userData?.disease?.includes('心臟病') ? 'checked' : '' %>> 心臟病
+            <input type="checkbox" name="disease" value="心血管疾病" <%= userData?.disease?.includes('心血管疾病') ? 'checked' : '' %>> 心血管疾病
+            <input type="checkbox" name="disease" value="氣喘" <%= userData?.disease?.includes('氣喘') ? 'checked' : '' %>> 氣喘
+            <input type="checkbox" name="disease" value="惡性腫瘤" <%= userData?.disease?.includes('惡性腫瘤') ? 'checked' : '' %>> 惡性腫瘤
+            <input type="checkbox" name="disease" value="其他" <%= userData?.disease?.includes('其他') ? 'checked' : '' %>> 其他
+            <input type="text" name="otherDiseaseType" value="<%= userData?.otherDiseaseType || '' %>" placeholder="">
+        </div>
+
+        <h3>初診詢問事項</h3>
+        <div>
+            <label>女性請回答：您是否懷孕？</label>
+            <input type="radio" name="pregnancy" value="否" <%= userData?.pregnancy === '否' ? 'checked' : '' %>> 否
+            <input type="radio" name="pregnancy" value="是" <%= userData?.pregnancy === '是' ? 'checked' : '' %>> 是
+            <input type="radio" name="pregnancy" value="男性" <%= userData?.pregnancy === '男性' ? 'checked' : '' %>> 男性
+        </div>
+        <div>
+            <label>是否有抽菸、喝酒習慣：</label>
+            <input type="checkbox" name="habit" value="抽菸" <%= userData?.habit?.includes('抽菸') ? 'checked' : '' %>> 抽菸
+            <input type="checkbox" name="habit" value="喝酒" <%= userData?.habit?.includes('喝酒') ? 'checked' : '' %>> 喝酒
+        </div>
+        <div>
+            <label>是否有高血壓：</label>
+            <input type="radio" name="hypertension" value="無" <%= userData?.hypertension === '無' ? 'checked' : '' %>> 無
+            <input type="radio" name="hypertension" value="有" <%= userData?.hypertension === '有' ? 'checked' : '' %>> 有
+            <input type="text" name="bloodPressure" value="<%= userData?.bloodPressure || '' %>" placeholder="血壓數值">
+        </div>
+        <div>
+            <label>是否有骨質疏鬆：</label>
+            <input type="radio" name="osteoporosis" value="無" <%= userData?.osteoporosis === '無' ? 'checked' : '' %>> 無
+            <input type="radio" name="osteoporosis" value="有" <%= userData?.osteoporosis === '有' ? 'checked' : '' %>> 有
+            <input type="text" name="boneDensity" value="<%= userData?.boneDensity || '' %>" placeholder="骨質密度">
+        </div>
+        <div>
+            <label>是否有運動習慣：</label>
+            <input type="radio" name="exercise" value="否" <%= userData?.exercise === '否' ? 'checked' : '' %>> 否
+            <input type="radio" name="exercise" value="是" <%= userData?.exercise === '是' ? 'checked' : '' %>> 是
+        </div>
+        <div>
+            <label>運動類型為何？(可複選)</label>
+            <input type="checkbox" name="exerciseType" value="跑步" <%= userData?.exerciseType?.includes('跑步') ? 'checked' : '' %>> 跑步
+            <input type="checkbox" name="exerciseType" value="游泳" <%= userData?.exerciseType?.includes('游泳') ? 'checked' : '' %>> 游泳
+            <input type="checkbox" name="exerciseType" value="騎自行車" <%= userData?.exerciseType?.includes('騎自行車') ? 'checked' : '' %>> 騎自行車
+            <input type="checkbox" name="exerciseType" value="重訓" <%= userData?.exerciseType?.includes('重訓') ? 'checked' : '' %>> 重訓
+            <input type="checkbox" name="exerciseType" value="球類" <%= userData?.exerciseType?.includes('球類') ? 'checked' : '' %>> 球類
+            <input type="checkbox" name="exerciseType" value="其他" <%= userData?.exerciseType?.includes('其他') ? 'checked' : '' %>> 其他
+            <input type="text" name="otherExerciseType" value="<%= userData?.otherExerciseType || '' %>" placeholder="其他運動">
+        </div>
+        <div>
+            <label>運動頻率（一天幾分鐘？一週幾天？）</label>
+            <input type="text" name="exerciseFrequency" value="<%= userData?.exerciseFrequency || '' %>">
+        </div>
+        <div>
+            <label>是否長期服用上述以外的藥物：</label>
+            <input type="radio" name="medication" value="無" <%= userData?.medication === '無' ? 'checked' : '' %>> 無
+            <input type="radio" name="medication" value="有" <%= userData?.medication === '有' ? 'checked' : '' %>> 有
+            <input type="text" name="medicationDetails" value="<%= userData?.medicationDetails || '' %>" placeholder="請描述藥物">
+        </div>
+        <div>
+            <label>是否有其他須注意之健康問題：</label>
+            <textarea name="healthIssues" rows="3"><%= userData?.healthIssues || '' %></textarea>
+        </div>
+
+        <div>
+            <label>簽名：</label>
+            <input type="text" name="signature" value="<%= userData?.signature || '' %>" placeholder="請在此處簽名">
+        </div>
+        <br>
+        <button type="submit">提交 / Submit</button>
+    </form>
+
+    <!-- 引用 tw-city-selector 套件 -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/tw-city-selector@latest/dist/tw-city-selector.js"></script> -->
+    <!-- 引用自訂 JavaScript -->
+    <script src="/js/address.js"></script>
+
+</body>
+
+</html>

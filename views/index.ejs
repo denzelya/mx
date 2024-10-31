@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首頁</title>
+    <script>
+        function fetchUserData() {
+            // 获取输入的身份证字号
+            const idNumber = document.getElementById('idNumber').value;
+                
+            if (!idNumber) {
+                alert('請輸入身份證字號');
+                return;
+            }   
+            // 构建新的 URL
+            const url = `/firstTimeForm?idNumber=${idNumber}`;
+            // 导航到新的 URL
+            window.location.href = url;
+        }
+    </script>
+</head>
+<body>
+    <h3>新會員</h3>
+    <a href="/firstTimeForm" style="text-decoration: none;">
+    <button>填寫初診單</button>
+    </a>
+    </br>
+    </br>
+
+    <h3>舊會員</h3>
+    <!-- <form action="" method="POST">
+        身分證字號 <input type="text" name="member_id" />
+        <button >查詢</button>
+    </form></br> -->
+
+    <form action="/query" method="POST">
+        <div>
+            <label for="idNumber">身份證字號 / ID Number:</label>
+            <input type="text" id="idNumber" name="idNumber" oninput="this.value = this.value.toUpperCase()">
+            <button type="button" onclick="fetchUserData()">查詢資料</button>
+        </div>
+        <!-- 其餘的表單欄位 -->
+    </form>
+
+    <!-- <script>
+        async function fetchUserData() {
+            const idNumber = document.getElementById('idNumber').value;
+            
+            if (!idNumber) {
+                alert('請輸入身份證字號');
+                return;
+            }
+
+            try {
+                const response = await fetch('/get-user-data', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ idNumber })
+                });
+
+                if (!response.ok) throw new Error('查無此資料');
+
+                const data = await response.json();
+
+                // 遍歷 JSON 資料，並填充表單
+                for (const [key, value] of Object.entries(data)) {
+                    const element = document.querySelector(`[name="${key}"]`);
+                    if (element) element.value = value;
+                }
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+    </script> -->
+</body>
+</html>
